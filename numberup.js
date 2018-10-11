@@ -30,8 +30,9 @@
                         } else {
                             if (mom[1] === mom[3] || mom[2] === mom[3]) {
                             } else {
-                                var ok = true;                                
-                           }
+                                var ok = true;
+                                console.log(random);
+                            }
                         }
                     }
                 }
@@ -106,8 +107,12 @@
         }
         
         if (o === 4) {
-            const paragragh = document.createElement('h4');
+            var paragragh = document.createElement('h4');
             paragragh.innerText += mm + ' 〇〇〇〇';
+            resultDivided.appendChild(paragragh);
+            var paragragh = document.createElement('a');
+            paragragh.href = 'https://byoribyori.github.io/number/numberup';
+            paragragh.innerText += 'もう一度';
             resultDivided.appendChild(paragragh);
             end++
             setTimeout(result, 0);
@@ -128,8 +133,15 @@
                 paragragh.innerText += '正解は ' + random;
                 resultDivided.appendChild(paragragh);
                 var paragragh = document.createElement('a');
+                var paragragh = document.createElement('a');
                 paragragh.href = 'https://byoribyori.github.io/number/number';
                 paragragh.innerText += '3桁verからやりなおしだ';
+                resultDivided.appendChild(paragragh);
+                var paragragh = document.createElement('br');
+                resultDivided.appendChild(paragragh);
+                var paragragh = document.createElement('a');
+                paragragh.href = 'https://byoribyori.github.io/number/numberup';
+                paragragh.innerText += 'もう一度';
                 resultDivided.appendChild(paragragh);
                 end++
                 setTimeout(xxx, 0);
