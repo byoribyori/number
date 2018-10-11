@@ -96,7 +96,6 @@
             paragragh.href = 'https://byoribyori.github.io/number/numberup';
             paragragh.innerText += '4桁verへ';
             resultDivided.appendChild(paragragh);
-           
             end++
             setTimeout(result, 0);
         } else {
