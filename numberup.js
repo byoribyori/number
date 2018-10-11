@@ -31,7 +31,6 @@
                             if (mom[1] === mom[3] || mom[2] === mom[3]) {
                             } else {
                                 var ok = true;
-                                console.log(random);
                             }
                         }
                     }
