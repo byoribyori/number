@@ -90,6 +90,10 @@
             paragragh.href = 'https://byoribyori.github.io/number/numberup';
             paragragh.innerText += '4桁verへ';
             resultDivided.appendChild(paragragh);
+            var paragragh = document.createElement('a');
+            paragragh.href = 'https://byoribyori.github.io/number/number';
+            paragragh.innerText += 'もう一度';
+            resultDivided.appendChild(paragragh);
             end++
             setTimeout(result, 0);
         } else {
