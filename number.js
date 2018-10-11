@@ -115,6 +115,10 @@
                 var paragragh = document.createElement('h4');
                 paragragh.innerText += '正解は ' + random;
                 resultDivided.appendChild(paragragh);
+                var paragragh = document.createElement('a');
+                paragragh.href = 'https://byoribyori.github.io/number/number';
+                paragragh.innerText += 'もう一度';
+                resultDivided.appendChild(paragragh);
                 end++
                 setTimeout(xxx, 0);
             }
