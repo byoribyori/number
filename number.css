@@ -1,0 +1,25 @@
+body {
+    background-color: lightblue; 
+    width:330px;
+    margin-right: auto;
+    margin-left : auto;
+}
+.button{
+    position: relative;
+    top:1.5px;
+    height: 23.5px;
+    background-color:lightcoral;
+}
+.tel{
+  height: 17px;
+} 
+p{
+    border-bottom: dashed 2px blue;
+}
+h1{
+    border-top: solid 3px orange;
+    border-bottom: solid 3px orange;
+}
+h4{
+    border-bottom: dashed 2px red;
+}
