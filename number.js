@@ -27,6 +27,7 @@
                     if (mom[1] === mom[2] || mom[2] === '0') {
                     } else {
                         var ok = true;
+                        console.log(random);
                     }
                 }
             }
@@ -87,13 +88,16 @@
             paragragh.innerText += mm + ' 〇〇〇';
             resultDivided.appendChild(paragragh);
             var paragragh = document.createElement('a');
-            paragragh.href = 'https://byoribyori.github.io/number/numberup';
-            paragragh.innerText += '4桁verへ';
-            resultDivided.appendChild(paragragh);
-            var paragragh = document.createElement('a');
             paragragh.href = 'https://byoribyori.github.io/number/number';
             paragragh.innerText += 'もう一度';
             resultDivided.appendChild(paragragh);
+            var paragragh = document.createElement('br');
+            resultDivided.appendChild(paragragh);
+            var paragragh = document.createElement('a');
+            paragragh.href = 'https://byoribyori.github.io/number/numberup';
+            paragragh.innerText += '4桁verへ';
+            resultDivided.appendChild(paragragh);
+           
             end++
             setTimeout(result, 0);
         } else {
