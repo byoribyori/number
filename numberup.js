@@ -4,6 +4,7 @@
     const resultDivided = document.getElementById('result-area');
     var kaisuu = 0;
     var end = 0;
+    var date = 0;
 
     function ct() {
         var inputs = document.getElementsByTagName("input");
@@ -31,6 +32,7 @@
                             if (mom[1] === mom[3] || mom[2] === mom[3]) {
                             } else {
                                 var ok = true;
+                                console.log(random);
                             }
                         }
                     }
@@ -40,6 +42,9 @@
     }
 
     button.onclick = () => {
+        if (kaisuu === 0) {
+            date = Date.now();
+       }
         var mm = yosou.value + '';
         if (isNaN(yosou.value) === true || mm.length != 4) {
             alert('できません');
@@ -99,7 +104,15 @@
         }
 
         function result (){
-            alert('正解!\n  記録は' + kaisuu + '回');
+            const da = Date.now();
+            var sa = Math.round((da - date) / 1000);
+            if (sa >= 60) {
+                const byou = sa % 60;
+                var sa = (sa - byou) / 60;
+                alert('正解!\n  記録は' + kaisuu + '回です\n  ' + sa + '分' + byou + '秒かかりました');
+            } else {
+                alert('正解!\n  記録は' + kaisuu + '回です\n  ' + sa + '秒かかりました');
+            }
         }
         function xxx (){
             alert('GAMEOVER!\n  正解は' + random + 'でした');
