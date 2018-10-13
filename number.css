@@ -1,6 +1,6 @@
 body {
     background-color: lightblue; 
-    width:330px;
+    width:350px;
     margin-right: auto;
     margin-left : auto;
 }
@@ -25,4 +25,4 @@ h4{
 }
 h5 {
     word-wrap: break-word;
-  }
+}
