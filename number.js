@@ -176,6 +176,17 @@
                 paragragh.href = 'https://byoribyori.github.io/number/number';
                 paragragh.innerText += 'もう一度';
                 resultDivided.appendChild(paragragh);
+                var paragragh = document.createElement('br');
+                resultDivided.appendChild(paragragh);
+                var paragragh = document.createElement('button');
+                paragragh.id = 'miru';
+                paragragh.onclick = function () {
+                    var paragragh = document.createElement('h5');
+                    paragragh.innerText += haha;
+                    resultDivided.appendChild(paragragh);
+                }
+                paragragh.innerText += '何通りか見る';
+                resultDivided.appendChild(paragragh);
                 end++
                 setTimeout(xxx, 0);
             }
