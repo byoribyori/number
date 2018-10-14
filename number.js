@@ -54,7 +54,7 @@
     }
 
     button.onclick = () => {
-        if (yosou.value === 'ai' || ai === true) {
+        if (yosou.value === '01' || ai === true) {
             ai = true;
             ct();
             var mm = ha[Math.floor(Math.random() * ha.length)]
