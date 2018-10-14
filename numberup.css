@@ -24,3 +24,6 @@ h1{
 h4{
     border-bottom: dashed 2px gold;
 }
+h5 {
+    word-wrap: break-word;
+  }
