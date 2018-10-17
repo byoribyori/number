@@ -174,7 +174,7 @@
                                         }
                                     }
                                 }
-                                if (ikiru < syou && ikiru != 0) {
+                                if (ikiru < syou) {
                                     saisyou = inputs[i];
                                     syou = ikiru;
                                     mm = saisyou + '';
