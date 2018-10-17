@@ -53,7 +53,6 @@
                     if (mom[1] === mom[2] || mom[2] === '0') {
                     } else {
                         var ok = true;
-                        console.log(random);
                     }
                 }
             }
