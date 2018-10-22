@@ -1,0 +1,36 @@
+body{
+  background-color: lightblue; 
+  width:700px;
+  margin-right: auto;
+  margin-left : auto;
+  font-size: 1.5em;
+}
+.one,.six{
+width: 15px;
+font-size: 2em;
+}
+
+.two,.three,.four,.five{
+  width: 50px;
+font-size: 2em;
+}
+
+span{
+font-size: 2em
+}
+
+
+/* オリジナル */
+
+.t{
+  background-color: #fc6e51;
+  color: white;
+  width : 350px;
+  font-size: 0.6em;
+  display: block;
+  text-decoration: none;
+  transition: 0.4s;
+  box-shadow: 5px 6px 9px black;
+  padding: 1px;
+  height: 33px;
+}
