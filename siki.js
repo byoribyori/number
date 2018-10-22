@@ -103,7 +103,6 @@
           area.appendChild(result);
 
         } else {
-          console.log('あたり');
           ikkai = siki + '=' + kotae;
           kaisuu++;
           hinto = true;
@@ -195,7 +194,6 @@
     }
 
     k();
-    console.log(kar);
 
     if (kaisuu === 0) {
       var title = document.createElement('h2');
