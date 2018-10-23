@@ -41,3 +41,23 @@ font-size: 2em
   box-shadow: none;
   font-size: 0.9em;
 }
+
+.re{
+  background: none;
+  border: none;
+  border-bottom: dashed 2px blue;
+  transition: 0.3s;
+  padding: 3px;
+  font-size: 1em;
+  width: 170px;
+  display: block;
+
+  
+}
+
+.re:hover{
+  box-shadow: 3px 4px 5px black;
+  border: solid 2px blue;
+  transform:  translateY(-5px); 
+
+}
