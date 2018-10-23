@@ -34,3 +34,10 @@ font-size: 2em
   padding: 1px;
   height: 33px;
 }
+
+.t:hover{
+  background-color: rgb(255, 208, 0);
+  color: black;
+  box-shadow: none;
+  font-size: 0.9em;
+}
