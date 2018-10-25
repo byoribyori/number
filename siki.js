@@ -101,6 +101,7 @@
           result.className = 're';
           result.onclick = function () { window.location.reload(); }
           area.appendChild(result);
+          document.cookie='kiroku=' + fun +' '+ byou;
 
         } else {
           ikkai = siki + '=' + kotae;
