@@ -88,8 +88,10 @@
           var date = document.createElement('span');
           if (fun) {
             date.innerText = '記録は' + fun + '分' + byou + '秒';
+            document.cookie='kiroku=' + fun +' '+ byou;
           } else {
             date.innerText = '記録は' + Dat + '秒';
+            document.cookie='kiroku=' + Dat;
           }
           area.appendChild(date);
           br = document.createElement('br');
@@ -101,7 +103,6 @@
           result.className = 're';
           result.onclick = function () { window.location.reload(); }
           area.appendChild(result);
-          document.cookie='kiroku=' + fun +' '+ byou;
 
         } else {
           ikkai = siki + '=' + kotae;
