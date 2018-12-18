@@ -70,7 +70,8 @@
     var before = 10, pe = 0;
     var date, Q;
     window.onload = () => {
-        document.getElementById('number').focus();
+        var num = document.getElementById('number');
+        num.focus();
       }
     function start() {
       var number = document.getElementById('number').value;
@@ -105,8 +106,8 @@
             function () {
               document.getElementById('siki').innerText = ans[2][0];
               document.getElementById('anser').innerHTML = '<th><input id="an" class="an" onkeyup="anser(this.value)" maxlength="1" autocomplete="off" type="tel"></th>';
-              var input = document.getElementsByTagName('input');
-              input[1].autofocus = true;
+              var an = document.getElementById('an');
+              an.focus();
               date = Date.now();
             }, 1200);
         }, 1200);
@@ -149,7 +150,6 @@
         document.getElementById('siki').innerText = ans[3][0];
         document.getElementById('an').value = '';
         ans.shift();
-
       }
     }
 
