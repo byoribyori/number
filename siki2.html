@@ -52,6 +52,9 @@
   .aq{
     width: 165px;
     font-size: 2em;
+    border: 1px;
+    background-color: black;
+    color: white;
   }
   </style>
   <title>計算記憶</title>
@@ -173,7 +176,7 @@
         th1.className = "q";
         var th2 = document.createElement('th');
         th2.innerText = q9[i];
-        th2.style = eval(Q[i * 2]) === Number(q9[i]) ? "ok" : "bad";
+        th2.className = eval(Q[i * 2]) === Number(q9[i]) ? "ok" : "bad";
         tr.appendChild(th1);
         tr.appendChild(th2);
         table.appendChild(tr);
