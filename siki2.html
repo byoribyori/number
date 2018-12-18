@@ -106,10 +106,10 @@
               document.getElementById('siki').innerText = ans[2][0];
               document.getElementById('anser').innerHTML = '<th><input id="an" class="an" onkeyup="anser(this.value)" maxlength="1" autocomplete="off" type="tel"></th>';
               var input = document.getElementsByTagName('input');
-              input[1].focus();
+              input[1].autofocus = true;
               date = Date.now();
-            }, 1000);
-        }, 1000);
+            }, 1200);
+        }, 1200);
     }
 
     function create() {
@@ -148,8 +148,6 @@
       } else {
         document.getElementById('siki').innerText = ans[3][0];
         document.getElementById('an').value = '';
-        var input = document.getElementsByTagName('input');
-        input[0].focus();
         ans.shift();
 
       }
