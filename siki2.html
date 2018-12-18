@@ -39,8 +39,15 @@
   .q{
     width: 120px;
   }
-  .a{
+  .ok{
     width: 40px;
+    color: black;
+    background-color: rgb(207, 204, 204);
+  }
+  .bad{
+    width: 40px;
+    color: red;
+    background-color: pink;
   }
   .aq{
     width: 165px;
@@ -166,8 +173,7 @@
         th1.className = "q";
         var th2 = document.createElement('th');
         th2.innerText = q9[i];
-        th2.style = eval(Q[i * 2]) === Number(q9[i]) ? "color:black;" : "color:red;";
-        th2.className = "a";
+        th2.style = eval(Q[i * 2]) === Number(q9[i]) ? "ok" : "bad";
         tr.appendChild(th1);
         tr.appendChild(th2);
         table.appendChild(tr);
