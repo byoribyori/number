@@ -34,16 +34,16 @@
     border-bottom: solid 4px red;
   }
   h1{
-    font-size: 3em;
+    font-size: 2em;
   }
   .q{
-    width: 180px;
+    width: 120px;
   }
   .a{
-    width: 60px;
+    width: 40px;
   }
   .aq{
-    width: 244px;
+    width: 162px;
   }
   </style>
   <title>計算記憶</title>
@@ -58,6 +58,9 @@
     var q9 = [];
     var before = 10, pe = 0;
     var date, Q;
+    window.onload = () => {
+        document.getElementById('number').focus();
+      }
     function start() {
       var number = document.getElementById('number').value;
       if (number < 1 || (number + '').indexOf('.') != -1) {
