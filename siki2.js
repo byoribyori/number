@@ -1,7 +1,7 @@
 (function () {
   'use strict';
-  const start = document.getElementById('start');
-  start.onclick = () => { start() }
+  const sta = document.getElementById('start');
+  sta.onclick = () => { start() }
   window.onload = () => {
     var num = document.getElementById('number');
     num.focus();
