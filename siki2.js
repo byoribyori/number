@@ -4,7 +4,7 @@
   sta.onclick = () => { start() };
   window.onload = () => {
     var num = document.getElementById('number');
-    num.focus();
+    setTimeout(function () { num.focus(); }, 100);
   }
   var ans = [];
   var q9 = [];
