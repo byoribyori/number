@@ -7,7 +7,6 @@
   window.onload = () => {
     var num = document.getElementById('number');
     num.focus();
-    console.log(navigator.userAgent)
     if (!navigator.userAgent.match(/(iPhone|iPad|iPod|Android)/)) pc = true;
   }
   document.onkeydown = (e) => {
