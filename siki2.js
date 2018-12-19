@@ -1,11 +1,14 @@
 (function () {
   'use strict';
   var sq = false;
+  var pc = false;
   const sta = document.getElementById('start');
   sta.onclick = () => { start() };
   window.onload = () => {
     var num = document.getElementById('number');
     num.focus();
+    console.log(navigator.userAgent)
+    if (!navigator.userAgent.match(/(iPhone|iPad|iPod|Android)/)) pc = true;
   }
   document.onkeydown = (e) => {
     if (e.keyCode === 13 && !sq) {
@@ -20,9 +23,7 @@
   function start() {
     sq = true;
     var number = document.getElementById('number').value;
-    if (number < 1 || (number + '').indexOf('.') != -1) {
-      return;
-    }
+    if (number < 1 || (number + '').indexOf('.') != -1) return;
     create();
     Q = ans.toString();
     ans.push(['あと２つ']);
@@ -44,6 +45,20 @@
     var table = document.createElement('table');
     table.appendChild(tr);
     document.getElementById('area').appendChild(table);
+    document.getElementById('area2').innerHTML += `<table class="b">
+    <tr>
+    <th id=1>1</th>
+    <th id=2>2</th>
+    <th id=3>3</th></tr><tr>
+    <th id=4>4</th>
+    <th id=5>5</th>
+    <th id=6>6</th></tr><tr>
+    <th id=7>7</th>
+    <th id=8>8</th>
+    <th id=9>9</th></tr><tr>
+    <th id=0>0</th>
+    </tr>
+    </table>`;
     setTimeout(
       function () {
         document.getElementById('siki').innerText = ans[1][0];
@@ -51,9 +66,19 @@
           function () {
             document.getElementById('siki').innerText = ans[2][0];
             document.getElementById('anser').innerHTML = '<th><input id="an" class="an" maxlength="1" autocomplete="off" type="tel"></th>';
-            document.getElementById('an').onkeyup = () => { anser(document.getElementById('an').value) };
             var an = document.getElementById('an');
-            an.focus();
+            an.onkeyup = () => { anser(an.value) };
+            document.getElementById(1).onclick = function () { anser(1) }
+            document.getElementById(2).onclick = function () { anser(2) }
+            document.getElementById(3).onclick = function () { anser(3) }
+            document.getElementById(4).onclick = function () { anser(4) }
+            document.getElementById(5).onclick = function () { anser(5) }
+            document.getElementById(6).onclick = function () { anser(6) }
+            document.getElementById(7).onclick = function () { anser(7) }
+            document.getElementById(8).onclick = function () { anser(8) }
+            document.getElementById(9).onclick = function () { anser(9) }
+            document.getElementById(0).onclick = function () { anser(0) }
+            if (pc) an.focus();
             date = Date.now();
           }, 1200);
       }, 1200);
@@ -102,6 +127,7 @@
   function result() {
     var time = Math.round((Date.now() - date) / 1000);
     var table = document.getElementsByTagName('table');
+    table[0].remove();
     table[0].remove();
     var h1 = document.createElement('h1');
     h1.innerHTML = `${document.getElementById('number').value}問中 間違いは${pe / 5}問<br>`;
