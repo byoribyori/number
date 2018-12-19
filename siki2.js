@@ -1,10 +1,16 @@
 (function () {
   'use strict';
+  var sq = false;
   const sta = document.getElementById('start');
   sta.onclick = () => { start() };
   window.onload = () => {
     var num = document.getElementById('number');
     num.focus();
+  }
+  document.onkeydown = (e) => {
+    if (e.keyCode === 13 && !sq) {
+      start();
+    }
   }
   var ans = [];
   var q9 = [];
@@ -12,6 +18,7 @@
   var date, Q;
 
   function start() {
+    sq = true;
     var number = document.getElementById('number').value;
     if (number < 1 || (number + '').indexOf('.') != -1) {
       return;
