@@ -4,10 +4,69 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <style>
+  body{
+    background-color: lightblue;
+    width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  table{
+    border: 1px;
+    background-color: black;
+  }
+  th{
+    background-color: white;
+    font-size: 40px;
+  }
+  .siki{
+    width: 180px;
+  }
+  .anser{
+    width: 60px;
+  }
+  .an{
+    height: 50px;;
+    width: 50px;
+    font-size: 40px;
+  }
+  /* ここから */
+  .b{
+    width: 300px;
+  }
+  
+  </style>
   <title>Document</title>
 </head>
 <body>
-  <script>
-    document.write(navigator.userAgent,(navigator.userAgent.indexOf('iPhone')))</script>
+    <input id="an" class="an" maxlength="1" autocomplete="off" type="tel">
+    <table class="b">
+      <tr>
+        <th onclick="anser(1)">
+          1
+        </th>
+        <th onclick="anser(2)">
+          2
+        </th>
+        <th onclick="anser(3)">
+          3
+        </th>
+      </tr>
+      <tr>
+      <th onclick="anser(0)">
+        0
+      </th>
+    </tr>
+    </table>
+  <div id="a"></div>
+
+  <script >
+    //document.getElementById('a').innerHTML=``;
+  function anser(v){
+console.log(v);
+document.getElementById('a').innerText+=v;
+  }
+    
+    </script>
 </body>
 </html>
