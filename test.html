@@ -81,7 +81,7 @@
   <div id="a"></div>
 
   <script >
-    document.getElementById('a').innerText=navigator.userAgent;
+    document.getElementById('a').innerText=navigator.userAgent + navigator.userAgent.match(/(iPhone|iPad|iPod|Android)/);
   function anser(v){
 console.log(v);
 document.getElementById('a').innerText+=v;
