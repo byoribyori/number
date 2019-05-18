@@ -7,6 +7,59 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>数独作成</title>
   <style>
+    body {
+  width: 396px;
+  margin: auto;
+}
+
+table {
+  background-color: black;
+  margin: auto;
+}
+
+th {
+  width: 38px;
+  height: 38px;
+  font-size: 25px;
+  background-color: white;
+}
+
+tr>th:nth-child(9) {
+  border-right: solid 4px black;
+}
+
+tr>th:nth-child(1) {
+  border-left: solid 4px black;
+}
+
+tr>th:nth-child(3),
+tr>th:nth-child(6) {
+  border-right: solid 2px black;
+}
+
+tr>th:nth-child(4),
+tr>th:nth-child(7) {
+  border-left: solid 2px black;
+}
+
+tr:nth-child(1)>th {
+  border-top: solid 4px black;
+}
+
+tr:nth-child(9)>th {
+  border-bottom: solid 4px black;
+}
+
+tr:nth-child(3)>th,
+tr:nth-child(6)>th {
+  border-bottom: solid 2px black;
+}
+
+tr:nth-child(4)>th,
+tr:nth-child(7)>th {
+  border-top: solid 2px black;
+}
+
     #indication {
       height: 105px;
       margin-top: 12px;
