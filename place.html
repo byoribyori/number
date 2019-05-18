@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>数独作成</title>
+  <style>
+    #indication {
+      height: 105px;
+      margin-top: 12px;
+    }
+
+    button {
+      width: 90px;
+      font-size: 25px;
+      border-radius: 14px;
+      color: black;
+    }
+
+    #create,#post{
+      background-color: pink;
+      margin-left: 15px;
+      margin-top: 16px;
+    }
+
+    #next,#anser{
+      background-color: lightgreen;
+      float: right;
+      margin-right: 15px;
+      margin-top: 16px;
+    }
+
+    #next2 {
+      background-color: lightgreen;
+      float: right;
+      margin-right: 15px;
+    }
+
+    #select {
+      font-size: 18px;
+    }
+
+    select {
+      font-size: 0.9em
+    }
+
+    .change {
+      color: #00b7ff;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    #dis {
+      font-size: 15px;
+      width: 377px;
+      margin: auto;
+    }
+
+    .disc {
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      text-align: center;
+      border: solid 1.4px black;
+    }
+
+    [data-type="0"] {
+      background-color: lightskyblue;
+    }
+
+    [data-type="mon"] {
+      color: blue;
+    }
+
+    [data-type="1"] {
+      background-color: lightpink;
+    }
+
+    #end {
+      float: right;
+    }
+
+    .number>div {
+      width: 18.90388%;
+      display: inline-block;
+      text-align: center;
+      font-size: 20px;
+    }
+
+    .num {
+      font-weight: 600;
+      color: blue;
+    }
+  </style>
+</head>
+
+<body>
+  <script>
+
+    function d(e) {
+      return document.getElementById(e);
+    }
+
+    window.onload=()=>{
+
+    let table = '<table style="margin-top:8px">';
+    let table2 = '<table>';
+    for (let i = 0; i < 9; i++) {
+      table += '<tr>';
+      table2 += '<tr>';
+      for (let j = 0; j < 9; j++) {
+        table += `<th id="${'a' + i + j}"></th>`;
+        table2 += `<th id="${'b' + i + j}"></th>`;
+      }
+      table += '</tr>';
+      table2 += '</tr>';
+    }
+    table += '</table>';
+    table2 += '</table>';
+    document.getElementsByTagName('body')[0].innerHTML = table + `<div id="indication">
+        <button id="create">作成</button><button id="next">次へ</button></div>` + table2;
+
+    d('create').onclick = () => {
+      let cre
+      do {
+        cre = create();
+      } while (!cre);
+      hyouji();
+    }
+
+    d('next').onclick = () => {
+      if (d('a00').innerHTML) {
+        d('indication').innerHTML = `<div id="select"><select id="1">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+            <option>9</option>
+            </select>
+            <select id="2"onchange="sen(this.value,true)">
+            <option>列</option>
+            <option>行</option>
+            </select>目 と
+            <select id="3">
+            <option>1</option>
+            <option selected>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+            <option>9</option>
+            </select><span id="tsen">列</span>目 を<span class="change" onclick="change(true)">入れ替え</span><br>
+            <select id="4">
+            <option>1~3</option>
+            <option>4~6</option>
+            <option>7~9</option>
+            </select>
+            <select id="5" onchange="sen(this.value,false)">
+            <option>列</option>
+            <option>行</option>
+            </select>目 と
+            <select id="6">
+            <option>1~3</option>
+            <option selected>4~6</option>
+            <option>7~9</option>
+            </select><span id="fsen">列</span>目 を<span class="change" onclick="change(false)">入れ替え</span>
+            <button id="next2">次へ</button></div>`;
+
+        d('next2').onclick = () => {
+          d('indication').innerHTML = `<div id="dis">
+            <div data-type="0" class="disc"></div>は問題として残すもの 
+            <div data-type="1" class="disc"></div>は問題を解き、決まるもの<br>
+            全てのマスに色がついたら完成<br>
+            ※クリックで色を変えられます<button id="end">完成</button><br>
+            ↓で問題を解きながら作ろう
+            </div>`;
+          document.getElementsByTagName('body')[0].innerHTML += `<div class="number">
+            <div>
+            <span class="num">1</span>×<span id="1">0</span><br>
+            <span class="num">6</span>×<span id="6">0</span>
+            </div>
+            <div>
+            <span class="num">2</span>×<span id="2">0</span><br>
+            <span class="num">7</span>×<span id="7">0</span>
+            </div>
+            <div>
+            <span class="num">3</span>×<span id="3">0</span><br>
+            <span class="num">8</span>×<span id="8">0</span>
+            </div>
+            <div>
+            <span class="num">4</span>×<span id="4">0</span><br>
+            <span class="num">9</span>×<span id="9">0</span>
+            </div>
+            <div>
+            <span class="num">5</span>×<span id="5">0</span><br>
+            計<span id="0">0</span>
+            </div>
+            </div>`;
+
+          for (let i = 0; i < 9; i++) {
+            for (let j = 0; j < 9; j++) {
+              d('a' + i + j).onclick = () => {
+                click('a' + i + j);
+              }
+              d('b' + i + j).onclick = () => {
+                click('a' + i + j);
+              }
+            }
+          }
+
+          d('end').onclick = () => {
+            if (confirm('本当に完成しましたか?')) {
+              let q = '';
+              for (let i = 0; i < 9; i++) {
+                for (let j = 0; j < 9; j++) {
+                  click('a' + i + j, true);
+                  q+=d('a'+i+j).innerText+d('a'+i+j).dataset.type;
+                  d('a'+i+j).onclick=null;
+                  d('b'+i+j).onclick=null;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      function click(id, end) {
+        let info = d(id).dataset.type;
+        if (!info) {
+          if (!end) d(id).dataset.type = "0";
+          d(`b${id[1]}${id[2]}`).dataset.type = "mon";
+          d(`b${id[1]}${id[2]}`).innerText = d(id).innerText;
+          if (!end) {
+            d(d(id).innerText).innerText = Number(d(d(id).innerText).innerText) + 1;
+            d(0).innerText = Number(d(0).innerText) + 1;
+          }
+        } else if (info == "0") {
+          if (!end) d(id).dataset.type = "1";
+          d(`b${id[1]}${id[2]}`).dataset.type = "";
+          if (!end) {
+            d(d(id).innerText).innerText = Number(d(d(id).innerText).innerText) - 1;
+            d(0).innerText = Number(d(0).innerText) - 1;
+          }
+        } else {
+          if (!end) d(id).dataset.type = "";
+          d(`b${id[1]}${id[2]}`).dataset.type = "";
+          d(`b${id[1]}${id[2]}`).innerText = "";
+        }
+      }
+    }
+
+    function sen(s, t) {
+      d(`${t ? "t" : "f"}sen`).innerText = s == "列" ? "列" : "行";
+    }
+
+    function change(t) {
+      if (t) {
+        let one = Number(d(1).value);
+        let two = Number(d(3).value);
+        let retu = d(2).value == "列" ? true : false;
+        if (one < 4) {
+          if (two < 4) {
+            area_change(one, two, retu);
+          }
+        } else if (one < 7) {
+          if (two > 3 && two < 7) {
+            area_change(one, two, retu);
+          }
+        } else if (two > 6) {
+          area_change(one, two, retu);
+        }
+      } else {
+        let one = Number(d(4).value[0]);
+        let two = Number(d(6).value[0]);
+        let retu = d(5).value == "列" ? true : false;
+        area_change(one, two, retu);
+        area_change(one + 1, two + 1, retu);
+        area_change(one + 2, two + 2, retu);
+      }
+    }
+
+    function area_change(one, two, retu) {
+      if (one == two) return;
+      one--;
+      two--;
+      if (retu) {
+        ;
+        for (let i = 0; i < 9; i++) {
+          let kari = x[i][one];
+          x[i][one] = x[i][two];
+          x[i][two] = kari;
+        }
+        hyouji();
+      } else {
+        let kari = x[one];
+        x[one] = x[two];
+        x[two] = kari;
+        hyouji();
+      }
+    }
+
+    let x;
+    function create() {
+      x = [[], [], [], [], [], [], [], [], []];
+      let y = [[], [], [], [], [], [], [], [], []];
+      let area = [[], [], [], [], [], [], [], [], []];
+      for (let i = 1; i < 82; i++) {
+        let xx = i % 9 ? Math.floor(i / 9) : Math.floor(i / 9) - 1;
+        let yy = i % 9 ? i % 9 - 1 : 8;
+        let anum = number_area(xx, yy);
+        let number = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+        number_area(xx, yy)
+        for (let a = 0; a < x[xx].length; a++) {
+          if (number.indexOf(x[xx][a]) != -1) {
+            number.splice(number.indexOf(x[xx][a]), 1);
+          }
+        }
+        for (let b = 0; b < y[yy].length; b++) {
+          if (number.indexOf(y[yy][b]) != -1) {
+            number.splice(number.indexOf(y[yy][b]), 1);
+          }
+        }
+        for (let c = 0; c < area[anum].length; c++) {
+          if (number.indexOf(area[anum][c]) != -1) {
+            number.splice(number.indexOf(area[anum][c]), 1);
+          }
+        }
+        if (number.length) {
+          number = number[Math.floor(Math.random() * number.length)];
+          x[xx].push(number);
+          y[yy].push(number);
+          area[anum].push(number);
+        } else {
+          return false;
+        }
+      }
+      return true;
+    }
+
+    function number_area(y, t) {
+      return Math.floor(y / 3) * 3 + Math.floor(t / 3);
+    }
+
+    function hyouji() {
+      for (let i = 0; i < 9; i++) {
+        for (let j = 0; j < 9; j++) {
+          d('a' + i + j).innerText = x[i][j];
+        }
+      }
+    }
+
+  }
+  </script>
+</body>
+
+</html>
