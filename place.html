@@ -183,9 +183,9 @@ tr:nth-child(7)>th {
       hyouji();
     }
 
-    d('next').onclick = () => {
-      if (d('a00').innerHTML) {
-        d('indication').innerHTML = `<div id="select"><select id="1">
+       d('next').onclick = () => {
+        if (d('a00').innerHTML) {
+          d('indication').innerHTML = `<div id="select"><select id="1">
             <option>1</option>
             <option>2</option>
             <option>3</option>
@@ -196,7 +196,7 @@ tr:nth-child(7)>th {
             <option>8</option>
             <option>9</option>
             </select>
-            <select id="2"onchange="sen(this.value,true)">
+            <select id="2">
             <option>列</option>
             <option>行</option>
             </select>目 と
@@ -216,7 +216,7 @@ tr:nth-child(7)>th {
             <option>4~6</option>
             <option>7~9</option>
             </select>
-            <select id="5" onchange="sen(this.value,false)">
+            <select id="5">
             <option>列</option>
             <option>行</option>
             </select>目 と
@@ -226,8 +226,10 @@ tr:nth-child(7)>th {
             <option>7~9</option>
             </select><span id="fsen">列</span>目 を<span class="change">入れ替え</span>
             <button id="next2">次へ</button></div>`;
-        
-          document.getElementsByClassName('change')[0].onclick=()=>{change(true)}
+
+            d(2).onchange=()=>{sen(d(2).value,true);}
+            d(5).onchange=()=>{sen(d(5).value,false);}
+            document.getElementsByClassName('change')[0].onclick=()=>{change(true)}
             document.getElementsByClassName('change')[1].onclick=()=>{change(false)}
 
         d('next2').onclick = () => {
