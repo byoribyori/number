@@ -1,94 +1,284 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html>
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <style>
-  body{
-    background-color: lightblue;
-/*     width: 300px; */
-    margin-left: auto;
-    margin-right: auto;
-  }
-  table{
-    border: 1px;
-    background-color: black;
-  }
-  th{
-    background-color: white;
-    font-size: 40px;
-  }
-  .siki{
-    width: 180px;
-  }
-  .anser{
-    width: 60px;
-  }
-  .an{
-    height: 50px;;
-    width: 50px;
-    font-size: 40px;
-  }
-  .time{
-    border-bottom: solid 4px red;
-  }
-  h1{
-    font-size: 3em;
-  }
-  .q{
-    width: 180px;
-  }
-  .ok{
-    width: 60px;
-    color: black;
-    background-color: rgb(207, 204, 204);
-  }
-  .bad{
-    width: 60px;
-    color: red;
-    background-color: pink;
-  }
-  .aq{
-    width: 244px;
-    border: 1px;
-    background-color: black;
-    color: white;
-  }
-  /* ここから */
-  .b{
-    width: 300px;
-  }
-  
-  </style>
-  <title>test</title>
-</head>
-<body>
-    <table class="b">
-      <tr>
-      <th id=1 onclick="anser(1)">1</th>
-      <th id=2 onclick="anser(2)">2</th>
-      <th id=3 onclick="anser(3)">3</th></tr><tr>
-      <th id=4 onclick="anser(4)">4</th>
-      <th id=5 onclick="anser(5)">5</th>
-      <th id=6 onclick="anser(6)">6</th></tr><tr>
-      <th id=7 onclick="anser(7)">7</th>
-      <th id=8 onclick="anser(8)">8</th>
-      <th id=9 onclick="anser(9)">9</th></tr><tr>
-      <th id=0 onclick="anser(0)">0</th>
-      </tr>
-      </table>
-  <div id="a"></div><hr>
-  <div id="b"></div>
+    h1 {
+      text-align: center;
+      font-size: 220%;
+      margin: 4%;
+    }
 
-  <script >
-    document.getElementById('a').innerText=navigator.userAgent + navigator.userAgent.match(/(iPhone|iPad|iPod|Android)/);
-    document.getElementById('b').innerText=document.getElementsByTagName('body')[0].getClientRects()[0].width;
-  function anser(v){
-console.log(v);
-document.getElementById('a').innerText+=v;
-  }
+    #name {
+      display: block;
+      margin: auto;
+      font-size: 110%;
+      width: 8.1em;
+    }
+
+    .li {
+      font-size: 90%;
+      margin-bottom: 8%;
+    }
+
+    #start {
+      margin: 7% auto;
+      display: block;
+      width: 80%;
+      height: 1.8em;
+      font-size: 1.2em;
+      border: 2px solid #000000;
+      background: linear-gradient(0deg, #808080bd, #ffffff);
+      box-shadow: #000000 6px 6px 0 1px;
+      transition: 0.3s;
+    }
+
+    #start:hover {
+      box-shadow: #000000 11px 11px 0 1px;
+    }
+
+    .wait {
+      text-align: center;
+    }
+
+    #field {
+      background-color: #000000;
+      margin: auto;
+    }
+
+    div[id*="name"] {
+      text-align: center;
+      height: 1.3em;
+      padding: 4px;
+      font-weight: 600;
+    }
+
+    #Oname {
+      color: blue;
+    }
+
+    #Mname {
+      color: red;
+    }
+
+    [id*="box"] {
+      margin: auto;
+      font-size: 150%;
+      transition: 0.7s;
+    }
+
+    #Obox {
+      background-color: blue;
+      color: red;
+    }
+
+    #Mbox {
+      background-color: red;
+      color: blue;
+    }
+
+    #con {
+      text-align: center;
+      font-size: 1.2em;
+      font-weight: 600;
+      margin-left: 7%;
+    }
+
+    td {
+      width: 30px;
+    }
+
+    td:not(:empty) {
+      cursor: pointer;
+    }
+
+    #num {
+      font-size: 0.7em;
+    }
+
+    #s4 {
+      color: blue;
+    }
+
+    .item {
+      width: 50%;
+      height: 50%;
+      border-radius: 50%;
+      margin: auto;
+      font-size: 0.9em;
+      color: #ffffff;
+    }
+
+    .item[id^="m"] {
+      background-color: red;
+    }
+
+    .item[id^="o"] {
+      background-color: blue;
+    }
+  </style>
+
+</head>
+
+<body>
+  <style id="style">
+    html {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+  <style id="style2">
+    [id*="box"] {
+      width: 10%;
+      height: 10%;
+    }
+  </style>
+  <div id="area">
+    <h1>箱戦</h1>
+    <div class="li">
+      ・<span style="text-decoration: underline">箱で戦う</span><br>
+      ・箱は1ターンに3マス動ける<br>
+      ・箱は上下左右1マスに攻撃することができ、<br>　その方向を1ターンごとに変えられる
+
+    </div>
+    <input type="text" id="name" placeholder="※ユーザーネーム" value="<%= name %>" maxlength="8" autocomplete="off">
+    <button id="start">START</button>
+    <div class="wait">□<b id="wait"></b>□</div>
+  </div>
+
+  <script>
+    function d(e) {
+      return document.getElementById(e);
+    }
+    //window.onload=()=>{
+
+    var opponent_id, name = "ちょりちょり", opponent_name = "かっぴー";
+    var ok = false;
+    var ready = false;
+    var select = 0;
+
+    let height = document.getElementsByTagName('html')[0].getClientRects()[0].height;
+    let width = document.getElementsByTagName('html')[0].getClientRects()[0].width;
+    var Mtop = 0;
+
+    if (width >= height / 2) {
+      width = height / 2;
+    } else {
+      Mtop = (height - width * 2) / 2;
+      height = width * 2;
+    }
+    d('style').innerHTML = `html{
+      width: ${width}px;
+      height: ${height}px;
+      margin: ${Mtop}px auto;
+      font-size: ${width / 20}px;
+      font-family: sans-self;
+    }
     
-    </script>
+    th{
+      background-color: #ffffff;
+      width: ${height / 16 || height * 0.073}px;
+      height: ${height / 16 || height * 0.073}px;
+    }`
+
+
+
+
+    function start() {
+      var table = `<table id="field">`;
+      for (let i = 0; i < 10; i++) {
+        table += `<tr>`;
+        for (let j = 0; j < 5; j++) {
+          table += `<th id="${'' + i + j}"></th>`;
+        }
+        table += `</tr>`;
+      }
+      table += `</table>`;
+      d('area').innerHTML = `<div id="Oname"></div>` + table + `<div id="Mname"></div>
+      <table id="con" style="display:none;"><tr><td></td><td id="top">↑</td><td></td><td></td><td id="s1"></td></tr>
+        <tr><td id="left">←</td><td id="stop">止</td><td id="right">→</td><td></td><td id="s2"></td></tr>
+        <tr><td></td><td id="bottom">↓</td><td></td><td></td><td id="s3"></td></tr>
+        <tr><td colspan="3" id="num">あと3</td><td></td><td id="s4"></td></tr></div>`;
+      d('Oname').innerText = opponent_name;
+      d('Mname').innerText = name;
+      d('02').innerHTML = '<div id="Obox"></div>';
+      d('92').innerHTML = '<div id="Mbox"></div>';
+      var item = ['02'];
+      function tonari(pl) {
+        for (let i = 0; i < item.length; i++) {
+          var pla = item[i];
+          var nextTo = [pl, '' + (Number(pl[0]) + 1) + pl[1], '' + (Number(pl[0]) - 1) + pl[1], '' + pl[0] + (Number(pl[1]) + 1), '' + pl[0] + (Number(pl[1]) - 1)];
+          if (nextTo.indexOf(pla) != -1) return true;
+        }
+        return false;
+      }
+      for (let i = 0; i < 3; i++) {
+        do {
+          var place = '' + Math.floor(Math.random() * 7) + Math.floor(Math.random() * 5);
+        } while (tonari(place));
+        item.push(place);
+      }
+      const list = ['<div id="o1" class="item">ミ</div>', '<div id="o2" class="item">防</div>', '<div id="o3" class="item">爆</div>'];
+      const Mlist = ['<div id="m1" class="item">ミ</div>', '<div id="m2" class="item">防</div>', '<div id="m3" class="item">爆</div>'];
+      setTimeout(() => {
+        d('style2').innerHTML = `[id*="box"]{width: 80%;
+      height: 80%;}`;
+        setTimeout(() => {
+          let i = 0;
+          const set = setInterval(() => {
+            var p = item[1 + i];
+            d(p).innerHTML = list[i];
+            d('' + (9 - Number(p[0])) + (4 - Number(p[1]))).innerHTML = Mlist[i];
+            i++;
+            if (i == 3) {
+              clearInterval(set);
+              d('con').style = "";
+            }
+          }, 500);
+        }, 800);
+      }, 100);
+
+
+      d('top').onclick = () => {
+        select++;
+        selected('↑');
+      }
+      d('right').onclick = () => {
+        select++;
+        selected('→');
+      }
+      d('left').onclick = () => {
+        select++;
+        selected('←');
+      }
+      d('bottom').onclick = () => {
+        select++;
+        selected('↓');
+      }
+      d('stop').onclick = () => {
+        select++;
+        selected('止');
+      }
+
+      function selected(e) {
+        d('s' + select).innerText = e;
+        if (select == 3) {
+          d('stop').innerText = "";
+          d('num').innerText = '攻撃方向';
+        } else if (select == 4) {
+          d('num').innerText = "";
+          d('Mbox').innerText = e;
+        }
+        else {
+          d('num').innerText = 'あと' + (3 - select);
+        }
+      }
+    }
+
+  </script>
 </body>
+
 </html>
