@@ -9,10 +9,10 @@
       background-color: rgb(170, 210, 210);
     }
 
-    body {
+    /* body {
       width: 300px;
       margin: auto;
-    }
+    } */
 
     #title {
       text-align: center;
@@ -20,7 +20,6 @@
 
     #input {
       display: block;
-      font-size: 27px;
       width: 3em;
       margin: auto;
       text-align: center;
@@ -36,7 +35,6 @@
     #button {
       display: block;
       margin: auto;
-      font-size: 16px;
       width: 10em;
       background-color: rgb(235, 235, 235);
       border: outset 3px;
@@ -44,10 +42,10 @@
       transition: background-color 0s;
     }
 
-    #button:hover {
+    /* #button:hover {
       background-color: rgb(215, 215, 215);
       transition: background-color .2s;
-    }
+    } */
 
     #button:active {
       border: inset 3px;
@@ -55,7 +53,6 @@
 
     #button>span {
       display: inline-block;
-      width: 140px;
     }
 
     #l {
@@ -70,6 +67,7 @@
 </head>
 
 <body>
+  <style id="style"></style>
   <div id="title">数字あてゲーム</div>
   <div><input type="tel" id="input" maxlength="3"></div>
   <button id="button"><span><span id="l">↓</span>解答<span id="r">↓</span></span></button>
@@ -77,11 +75,22 @@
 
 
   <script>
-    const sm = navigator.userAgent.match(/(iPhone|iPad|iPod|Android)/i);
+    const sm = navigator.userAgent.match(/(iPhone|iPad|iPod|Android)/i);//  ${sm?:}
+    document.getElementById('style').innerHTML=`
+      #input {
+        font-size: ${sm?25:32}px;
+      }
+      #button {
+        font-size: ${sm?15:20}px;
+      }
+      #button>span {
+        width: ${sm?100:140}px;
+      }
+    `;
 
     const input = document.getElementById('input');
     const button = document.getElementById('button');
-    const area = document.getElementById('area'); area.innerText=sm+'';
+    const area = document.getElementById('area');
 
     let number = [1, 2, 3, 4, 5, 6, 7, 8, 9];
     let anser = '';
