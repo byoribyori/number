@@ -77,6 +77,9 @@
   <script>
     const sm = navigator.userAgent.match(/(iPhone|iPad|iPod|Android)/i);//  ${sm?:}
     document.getElementById('style').innerHTML=`
+      #title {
+        font-size: ${sm?17:28}px;
+      }
       #input {
         font-size: ${sm?20:32}px;
       }
