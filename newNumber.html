@@ -57,24 +57,28 @@
     #r {
       float: right;
     }
-    .display{
+
+    .display {
       margin: 0.5em auto;
       height: 1.2em;
       text-align: center;
     }
-    .display > span {
+
+    .display>span {
       display: inline-block;
       vertical-align: top;
     }
-    .maru{
+
+    .maru {
       display: inline-block;
       border-radius: 50%;
       background-color: red;
       margin-left: 1.3em;
     }
-    .sankaku{
+
+    .sankaku {
       display: inline-block;
-      width:0;
+      width: 0;
       height: 0;
       border-style: solid;
       border-color: transparent transparent blue;
@@ -93,7 +97,7 @@
 
 
   <script>
-    const sm = navigator.userAgent.match(/(iPhone|iPad|iPod|Android)/i);//  ${sm?:}
+    const sm = navigator.userAgent.match(/(iPhone|iPad|iPod|Android)/i);
     document.getElementById('style').innerHTML = `
       #title {
         font-size: ${sm ? 16 : 28}px;
@@ -133,7 +137,6 @@
       anser += random;
       number.splice(number.indexOf(random), 1);
     }
-    console.log(anser);
 
     button.onclick = () => {
       click();
@@ -143,11 +146,13 @@
       if (e.keyCode == 13) click();
     }
 
+    let kaisu = 0;
     const click = () => {
       let n = input.value;
       if (isNaN(n) || n.length != 3 || n[0] == n[1] || n[0] == n[2] || n[1] == n[2] || -1 < n.indexOf(0)) {
         alert('できません');
       } else {
+        kaisu++;
         let o = 0;
         let x = 0;
         for (let i = 0; i < 3; i++) {
@@ -163,13 +168,16 @@
             }
           }
         }
-        console.log(o, x)
-        area.innerHTML+=`<div class="display"><span>${n}</span><div class="maru"></div><span>${o}</span><div class="sankaku"></div><span>${x}</span></div>`;
+
+        area.innerHTML += `<div class="display"><span>${n}</span><div class="maru"></div><span>${o}</span><div class="sankaku"></div><span>${x}</span></div>`;
+        if (o == 3) {
+          alert(`正解!!\n記録は${kaisu}回`);
+        }
 
       }
+      input.value = '';
     }
 
-    input.value = 517;click();
 
 
   </script>
