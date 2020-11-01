@@ -25,8 +25,12 @@
       outline: none;
     }
 
-    #input:focus {
+    #input:focus:not([readonly]) {
       border: blue solid 1px;
+    }
+
+    #input[readonly] {
+      background-color: lightgrey;
     }
 
     #button {
@@ -80,6 +84,17 @@
       border-color: transparent transparent blue;
       margin-left: 0.7em;
     }
+
+    #one {
+      font-size: 20px;
+      margin: auto;
+      display: block;
+      border: purple solid 2px;
+      border-radius: 10px;
+      width: 6em;
+      background-color: white;
+      color: purple;
+    }
   </style>
   <title>数字あてゲーム</title>
 </head>
@@ -87,7 +102,7 @@
 <body>
   <style id="style"></style>
   <div id="title">数字あてゲーム</div>
-  <div><input type="tel" id="input" maxlength="3"></div>
+  <div><input type="text" id="input" maxlength="3" autocomplete="off"></div>
   <button id="button"><span><span id="l">↓</span>解答<span id="r">↓</span></span></button>
   <div id="area"></div>
 
@@ -96,7 +111,7 @@
     const sm = navigator.userAgent.match(/(iPhone|iPad|iPod|Android)/i);
     document.getElementById('style').innerHTML = `
       #title {
-        font-size: ${sm ? 16 : 28}px;
+        font-size: ${sm ? 20 : 28}px;
       }
       #input {
         font-size: ${sm ? 20 : 32}px;
@@ -120,6 +135,10 @@
       .sankaku {
         border-width: 0 ${sm ? 10 : 19}px ${sm ? 16 : 32}px;
       }
+      #one {
+        font-size: ${sm ? 10 : 20}px;
+        border-radius: ${sm ? 5 : 10}px;
+      }
     `;
 
     const input = document.getElementById('input');
@@ -142,32 +161,47 @@
       if (e.keyCode == 13) click();
     }
 
-    let kaisu = 0;
+    let color = '';
     const click = () => {
+      if (input.readOnly == true) return;
       let n = input.value;
       if (isNaN(n) || n.length != 3 || n[0] == n[1] || n[0] == n[2] || n[1] == n[2] || -1 < n.indexOf(0)) {
         alert('できません');
       } else {
-        kaisu++;
         let o = 0;
         let x = 0;
-        for (let i = 0; i < 3; i++) {
+        a: for (let i = 0; i < 3; i++) {
           let n1 = n[i];
           for (let j = 0; j < 3; j++) {
             let a1 = anser[j];
             if (n1 == a1) {
               if (i == j) {
                 o++;
+                color += 2;
+                continue a;
               } else {
                 x++;
+                color += 1;
+                continue a;
               }
+            } else if (j == 2) {
+              color += 0;
             }
           }
         }
 
-        area.innerHTML += `<div class="display"><span>${n}</span><div class="maru"></div><span>${o}</span><div class="sankaku"></div><span>${x}</span></div>`;
+        area.innerHTML += `<div class="display"><span><span class="color">${n[0]}</span><span class="color">${n[1]}</span><span class="color">${n[2]}</span></span><div class="maru"></div><span>${o}</span><div class="sankaku"></div><span>${x}</span></div>`;
         if (o == 3) {
-          alert(`正解!!\n記録は${kaisu}回`);
+          input.readOnly = true;
+          alert(`正解!!\n記録は${color.length / 3}回`);
+          const c = document.getElementsByClassName('color');
+          for (let i = 0; i < color.length; i++) {
+            c[i].style.color = color[i] == 2 ? 'red' : color[i] == 1 ? 'blue' : 'black';
+          }
+          area.innerHTML += '<button id="one">もう一度</button>';
+          document.getElementById('one').onclick = () => {
+            location.reload();
+          }
         }
 
       }
