@@ -16,12 +16,13 @@
 
     #title {
       text-align: center;
+      margin-bottom: 0.5em;
     }
 
     #input {
       display: block;
       width: 3em;
-      margin: auto;
+      margin: 0 auto 0.1em;
       text-align: center;
       border-radius: 11px;
       border: black solid 1px;
@@ -39,13 +40,7 @@
       background-color: rgb(235, 235, 235);
       border: outset 3px;
       outline: none;
-      transition: background-color 0s;
     }
-
-    /* #button:hover {
-      background-color: rgb(215, 215, 215);
-      transition: background-color .2s;
-    } */
 
     #button:active {
       border: inset 3px;
@@ -62,6 +57,29 @@
     #r {
       float: right;
     }
+    .display{
+      margin: 0.5em auto;
+      height: 1.2em;
+      text-align: center;
+    }
+    .display > span {
+      display: inline-block;
+      vertical-align: top;
+    }
+    .maru{
+      display: inline-block;
+      border-radius: 50%;
+      background-color: red;
+      margin-left: 1.3em;
+    }
+    .sankaku{
+      display: inline-block;
+      width:0;
+      height: 0;
+      border-style: solid;
+      border-color: transparent transparent blue;
+      margin-left: 0.7em;
+    }
   </style>
   <title>数字あてゲーム</title>
 </head>
@@ -76,18 +94,31 @@
 
   <script>
     const sm = navigator.userAgent.match(/(iPhone|iPad|iPod|Android)/i);//  ${sm?:}
-    document.getElementById('style').innerHTML=`
+    document.getElementById('style').innerHTML = `
       #title {
-        font-size: ${sm?17:28}px;
+        font-size: ${sm ? 16 : 28}px;
       }
       #input {
-        font-size: ${sm?20:32}px;
+        font-size: ${sm ? 20 : 32}px;
       }
       #button {
-        font-size: ${sm?12:20}px;
+        font-size: ${sm ? 12 : 20}px;
       }
-      #button>span {
-        width: ${sm?90:140}px;
+      #button > span {
+        width: ${sm ? 90 : 140}px;
+      }
+      .display{
+        font-size: ${sm ? 16 : 32}px;
+      }
+      .display > span {
+        line-height: ${sm ? 20 : 40}px;
+      }
+      .maru {
+        width: ${sm ? 16 : 32}px;
+        height: ${sm ? 16 : 32}px;
+      }
+      .sankaku {
+        border-width: 0 ${sm ? 10 : 19}px ${sm ? 16 : 32}px;
       }
     `;
 
@@ -104,19 +135,41 @@
     }
     console.log(anser);
 
-    button.onclick = () =>{
+    button.onclick = () => {
       click();
     }
 
-    input.onkeydown=(e)=>{
-      area.innerHTML+=e.keyCode;
+    input.onkeydown = (e) => {
+      if (e.keyCode == 13) click();
     }
 
     const click = () => {
-      area.innerHTML+=input.value;
+      let n = input.value;
+      if (isNaN(n) || n.length != 3 || n[0] == n[1] || n[0] == n[2] || n[1] == n[2] || -1 < n.indexOf(0)) {
+        alert('できません');
+      } else {
+        let o = 0;
+        let x = 0;
+        for (let i = 0; i < 3; i++) {
+          let n1 = n[i];
+          for (let j = 0; j < 3; j++) {
+            let a1 = anser[j];
+            if (n1 == a1) {
+              if (i == j) {
+                o++;
+              } else {
+                x++;
+              }
+            }
+          }
+        }
+        console.log(o, x)
+        area.innerHTML+=`<div class="display"><span>${n}</span><div class="maru"></div><span>${o}</span><div class="sankaku"></div><span>${x}</span></div>`;
+
+      }
     }
 
-
+    input.value = 517;click();
 
 
   </script>
