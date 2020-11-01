@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    html {
+      background-color: rgb(170, 210, 210);
+    }
+
+    body {
+      width: 300px;
+      margin: auto;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    #input {
+      display: block;
+      font-size: 32px;
+      width: 3em;
+      margin: auto;
+      text-align: center;
+      border-radius: 13px;
+      border: black solid 1px;
+      outline: none;
+    }
+
+    #input:focus {
+      border: blue solid 1px;
+    }
+
+    #button {
+      display: block;
+      margin: auto;
+      font-size: 20px;
+      width: 10em;
+      background-color: rgb(235, 235, 235);
+      border: outset 3px;
+      outline: none;
+      transition: background-color 0s;
+    }
+
+    #button:hover {
+      background-color: rgb(215, 215, 215);
+      transition: background-color .2s;
+    }
+
+    #button:active {
+      border: inset 3px;
+    }
+
+    #button>span {
+      display: inline-block;
+      width: 140px;
+    }
+
+    #l {
+      float: left;
+    }
+
+    #r {
+      float: right;
+    }
+  </style>
+  <title>数字あてゲーム</title>
+</head>
+
+<body>
+  <h1>数字あてゲーム</h1>
+  <div><input type="tel" id="input" maxlength="3"></div>
+  <button id="button"><span><span id="l">↓</span>解答<span id="r">↓</span></span></button>
+  <div id="area"></div>
+
+
+  <script>
+
+    const input = document.getElementById('input');
+    const button = document.getElementById('button');
+    const area = document.getElementById('area');
+
+    let number = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    let anser = '';
+    for (let i = 0; i < 3; i++) {
+      let random = number[Math.floor(Math.random() * (9 - i))]
+      anser += random;
+      number.splice(number.indexOf(random), 1);
+    }
+    console.log(anser);
+
+    button.onclick = () =>{
+      click();
+    }
+
+    input.onkeydown=(e)=>{
+      area.innerHTML+=e.keyCode;
+    }
+
+    const click = () => {
+      area.innerHTML+=input.value;
+    }
+
+
+
+
+  </script>
+</body>
+
+</html>
