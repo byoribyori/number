@@ -14,17 +14,17 @@
       margin: auto;
     }
 
-    h1 {
+    #title {
       text-align: center;
     }
 
     #input {
       display: block;
-      font-size: 32px;
+      font-size: 27px;
       width: 3em;
       margin: auto;
       text-align: center;
-      border-radius: 13px;
+      border-radius: 11px;
       border: black solid 1px;
       outline: none;
     }
@@ -36,7 +36,7 @@
     #button {
       display: block;
       margin: auto;
-      font-size: 20px;
+      font-size: 16px;
       width: 10em;
       background-color: rgb(235, 235, 235);
       border: outset 3px;
@@ -70,17 +70,18 @@
 </head>
 
 <body>
-  <h1>数字あてゲーム</h1>
-  <div><input type="text" id="input" maxlength="3"></div>
+  <div id="title">数字あてゲーム</div>
+  <div><input type="tel" id="input" maxlength="3"></div>
   <button id="button"><span><span id="l">↓</span>解答<span id="r">↓</span></span></button>
   <div id="area"></div>
 
 
   <script>
+    const sm = navigator.userAgent.match(/(iPhone|iPad|iPod|Android)/i);
 
     const input = document.getElementById('input');
     const button = document.getElementById('button');
-    const area = document.getElementById('area');
+    const area = document.getElementById('area'); area.innerText=sm+'';
 
     let number = [1, 2, 3, 4, 5, 6, 7, 8, 9];
     let anser = '';
