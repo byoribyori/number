@@ -6,7 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     html {
-      background-color: rgb(170, 210, 210);
+      background-color: rgb(190, 220, 220);
+      width: 100%;
+      height: 100%;
     }
 
     #title {
@@ -62,6 +64,8 @@
       margin: 0.5em auto;
       height: 1.2em;
       text-align: center;
+      width: 9em;
+      border-bottom: rgb(200 100 100 / 1) double 4px;
     }
 
     .display>span {
@@ -93,6 +97,71 @@
       background-color: white;
       color: purple;
     }
+
+    #watch {
+      display: none;
+      z-index: 2;
+      color: transparent;
+      background-color: transparent;
+      border-radius: 10%;
+      position: absolute;
+      overflow-y: scroll;
+      overflow-x: hidden;
+      transition: background-color 1.5s, color 4s, display 1s;
+      ;
+    }
+
+    #watch[data-on="true"] {
+      display: block;
+      color: black;
+      background-color: white;
+      transition: background-color 1.5s, color 4s, display 1s;
+    }
+
+    td {
+      width: 4em;
+      text-align: center;
+      height: 1em;
+    }
+
+    #x {
+      width: 1.5em;
+      height: 1.5em;
+      background-color: lightgray;
+      display: inline-block;
+    }
+
+    #x::before,
+    #x::after {
+      width: 1.5em;
+      height: 0.15em;
+      background-color: red;
+      content: '';
+      display: block;
+      position: absolute;
+      top: 0.8em;
+    }
+
+    #x:before {
+      transform: rotate(45deg);
+    }
+
+    #x::after {
+      transform: rotate(135deg);
+    }
+
+    ::-webkit-scrollbar {
+      width: 3px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background-color: rgb(185, 185, 185);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background-color: rgb(50, 50, 50);
+      border-radius: 10px;
+    }
   </style>
   <title>数字あてゲーム</title>
 </head>
@@ -103,10 +172,25 @@
   <div><input type="tel" id="input" maxlength="3" autocomplete="off"></div>
   <button id="button"><span><span id="l">↓</span>解答<span id="r">↓</span></span></button>
   <div id="area"></div>
+  <div id="watch">
+    <table id="table">
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><span id="x"></span></td>
+      </tr>
+    </table>
+  </div>
+  </table>
+  </div>
 
 
   <script>
     const sm = navigator.userAgent.match(/(iPhone|iPad|iPod|Android)/i);
+    const width = document.getElementsByTagName('html')[0].getClientRects()[0].width;
+    const height = document.getElementsByTagName('html')[0].getClientRects()[0].height;
     document.getElementById('style').innerHTML = `
       #title {
         font-size: ${sm ? 20 : 28}px;
@@ -121,21 +205,35 @@
         width: ${sm ? 90 : 140}px;
       }
       .display{
-        font-size: ${sm ? 16 : 32}px;
+        font-size: ${sm ? 20 : 32}px;
       }
       .display > span {
-        line-height: ${sm ? 20 : 40}px;
+        line-height: ${sm ? 25 : 40}px;
       }
       .maru {
-        width: ${sm ? 16 : 32}px;
-        height: ${sm ? 16 : 32}px;
+        width: ${sm ? 20 : 32}px;
+        height: ${sm ? 20 : 32}px;
       }
       .sankaku {
-        border-width: 0 ${sm ? 10 : 19}px ${sm ? 16 : 32}px;
+        border-width: 0 ${sm ? 12 : 19}px ${sm ? 20 : 32}px;
       }
       #one {
-        font-size: ${sm ? 10 : 20}px;
-        border-radius: ${sm ? 5 : 10}px;
+        font-size: ${sm ? 13 : 20}px;
+        border-radius: ${sm ? 6 : 10}px;
+      }
+      #watch {
+        width: ${sm ? width * 0.8 : 400}px;
+        height: ${sm ? height * 0.7 : 600}px;
+        top: ${sm ? height * 0.15 : (height - 600) / 2}px;
+        left: ${sm ? width * 0.1 : (width - 400) / 2}px;
+        font-size: ${sm ? width * 0.04 : 20}px;
+      }
+      th > .maru {
+        width: ${(sm ? width * 0.8 : 400) / 20}px;
+        height: ${(sm ? width * 0.8 : 400) / 20}px;
+      }
+      th > .sankaku {
+        border-width: 0 ${sm ? width * 0.024 : 12}px ${sm ? width * 0.04 : 20}px;
       }
     `;
 
@@ -143,13 +241,12 @@
     const button = document.getElementById('button');
     const area = document.getElementById('area');
 
-    let number = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-    let anser = '';
-    for (let i = 0; i < 3; i++) {
-      let random = number[Math.floor(Math.random() * (9 - i))]
-      anser += random;
-      number.splice(number.indexOf(random), 1);
+    let data = [];
+    for (let i = 123; i < 988; i++) {
+      let num = i + '';
+      if (-1 == num.indexOf(0) && num[0] != num[1] && num[0] != num[2] && num[1] != num[2]) data.push(num);
     }
+    const anser = data[Math.floor(Math.random() * 504)];
 
     button.onclick = () => {
       click();
@@ -159,6 +256,7 @@
       if (e.keyCode == 13) click();
     }
 
+    let input_data = [];
     let color = '';
     const click = () => {
       if (input.readOnly == true) return;
@@ -166,6 +264,7 @@
       if (isNaN(n) || n.length != 3 || n[0] == n[1] || n[0] == n[2] || n[1] == n[2] || -1 < n.indexOf(0)) {
         alert('できません');
       } else {
+        input_data.push(n);
         let o = 0;
         let x = 0;
         a: for (let i = 0; i < 3; i++) {
@@ -187,8 +286,8 @@
             }
           }
         }
-
         area.innerHTML += `<div class="display"><span><span class="color">${n[0]}</span><span class="color">${n[1]}</span><span class="color">${n[2]}</span></span><div class="maru"></div><span>${o}</span><div class="sankaku"></div><span>${x}</span></div>`;
+
         if (o == 3) {
           input.readOnly = true;
           alert(`正解!!\n記録は${color.length / 3}回`);
@@ -196,18 +295,59 @@
           for (let i = 0; i < color.length; i++) {
             c[i].style.color = color[i] == 2 ? 'red' : color[i] == 1 ? 'blue' : 'black';
           }
+          button.innerText = '詳しく見る';
+          button.onclick = () => {
+            document.getElementById('x').onclick = () => {
+              document.getElementById('watch').dataset.on = "x";
+            }
+            document.getElementById('watch').dataset.on = "true";
+          }
           area.innerHTML += '<button id="one">もう一度</button>';
           document.getElementById('one').onclick = () => {
             location.reload();
           }
+        } else {
+          let oo = 0;
+          let xx = 0;
+          let data2 = [];
+          for (let an = 0; an < data.length; an++) {
+            let ans = data[an];
+            a: for (let i = 0; i < 3; i++) {
+              let n1 = n[i];
+              for (let j = 0; j < 3; j++) {
+                let a1 = ans[j];
+                if (n1 == a1) {
+                  if (i == j) {
+                    oo++;
+                    continue a;
+                  } else {
+                    xx++;
+                    continue a;
+                  }
+                }
+              }
+            }
+            if (o == oo && x == xx) data2.push(ans);
+            oo = 0;
+            xx = 0;
+          }
+          data = data2; console.log(data)
+          let all = `<tr><th colspan=5>${n}<div class="maru"></div><span>${o}</span><div class="sankaku"></div><span>${x}</span>　・・・${data.length}通り</th></tr>`;
+          for (let i = 0; i < data.length; i++) {
+            if (!i % 5) all += '<tr>';
+            all += `<td>${data[i]}</td>`;
+            if (i % 5 == 4) all += '</tr>';
+          }
+          document.getElementById('table').innerHTML += all + '<tr><td></td></tr>';
         }
 
       }
       input.value = '';
+      input.focus();
     }
 
 
-
+    //for (let i = 0; i < 6; i++) { input.value = data[Math.floor(Math.random() * data.length)]; click(); }
   </script>
 </body>
 
